@@ -18,7 +18,7 @@ namespace ImageProcessing
     public partial class Form1 : Form
     {
         private List<Bitmap> _bitmaps = new List<Bitmap>();        
-        private List<Color> _checkedColors = new List<Color>() {Color.White};
+        private List<Color> _checkedColors = new List<Color>();
         private Random _random = new Random();
 
         public Form1()
@@ -32,21 +32,33 @@ namespace ImageProcessing
         /// </summary>
         private void SetColors()
         {
-            // Выбранные цвета
-            foreach (var item in checkedColorsList.CheckedItems)
-            {                 
-                if (item.ToString() == "Black")
-                    _checkedColors.Add(Color.Black);
-                
-                if (item.ToString() == "Red")
-                    _checkedColors.Add(Color.Red);
-
-                if (item.ToString() == "Green")
-                    _checkedColors.Add(Color.Green);
-
-                if (item.ToString() == "Blue")
-                    _checkedColors.Add(Color.Blue);
+            if (checkedColorsList.CheckedItems.Count == 0)
+            {
+                _checkedColors.Add(Color.White);
             }
+
+            else
+            {
+                // Выбранные цвета
+                foreach (var item in checkedColorsList.CheckedItems)
+                {
+                    if (item.ToString() == "White")
+                        _checkedColors.Add(Color.White);
+
+                    if (item.ToString() == "Black")
+                        _checkedColors.Add(Color.Black);
+
+                    if (item.ToString() == "Red")
+                        _checkedColors.Add(Color.Red);
+
+                    if (item.ToString() == "Green")
+                        _checkedColors.Add(Color.Green);
+
+                    if (item.ToString() == "Blue")
+                        _checkedColors.Add(Color.Blue);
+                }
+            }
+            
         }
 
         // Работа программы
@@ -56,10 +68,12 @@ namespace ImageProcessing
 
             menuStrip1.Enabled = trackBar1.Enabled = saveBtn.Enabled = checkedColorsList.Enabled = retryBtn.Enabled = false;
 
-            SetColors();
-
+            _checkedColors.Clear();
             pictureBox1.Image = null;
             _bitmaps.Clear();
+
+            SetColors();
+            
             Bitmap bitmap = new Bitmap(openFileDialog1.FileName);
             await Task.Run(() => { RunProcessing(bitmap); });
 
