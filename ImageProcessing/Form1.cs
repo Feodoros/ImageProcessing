@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -27,10 +28,19 @@ namespace ImageProcessing
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                var sw = Stopwatch.StartNew();
+
+                menuStrip1.Enabled = trackBar1.Enabled = false; 
+
                 pictureBox1.Image = null;
                 _bitmaps.Clear();
                 Bitmap bitmap = new Bitmap(openFileDialog1.FileName);                
-                await Task.Run RunProcessing(bitmap);
+                await Task.Run( () => { RunProcessing(bitmap); } );
+
+                menuStrip1.Enabled = trackBar1.Enabled = true;
+
+                sw.Stop();
+
             }
         }
 
@@ -62,7 +72,11 @@ namespace ImageProcessing
 
                 _bitmaps.Add(currentBitmap);
 
-                Text = $"{i}%";
+                this.Invoke(new Action(() =>
+                {
+                    Text = $"{i}%";
+                }
+                ));
             }
 
             _bitmaps.Add(bitmap);
