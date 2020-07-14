@@ -24,7 +24,7 @@ namespace ImageProcessing
         public Form1()
         {
             InitializeComponent();
-            trackBar1.Enabled = saveBtn.Enabled = false;
+            trackBar1.Enabled = saveBtn.Enabled = retryBtn.Enabled = false;
         }
 
         /// <summary>
@@ -49,25 +49,31 @@ namespace ImageProcessing
             }
         }
 
-        private async void openToolStripMenuItem_Click(object sender, EventArgs e)
+        // Работа программы
+        private async void Run()
+        {
+            var sw = Stopwatch.StartNew();
+
+            menuStrip1.Enabled = trackBar1.Enabled = saveBtn.Enabled = checkedColorsList.Enabled = retryBtn.Enabled = false;
+
+            SetColors();
+
+            pictureBox1.Image = null;
+            _bitmaps.Clear();
+            Bitmap bitmap = new Bitmap(openFileDialog1.FileName);
+            await Task.Run(() => { RunProcessing(bitmap); });
+
+            menuStrip1.Enabled = trackBar1.Enabled = saveBtn.Enabled = checkedColorsList.Enabled = retryBtn.Enabled = true;
+
+            sw.Stop();
+            Text = $"Processing time: {sw.Elapsed.Seconds} seconds";
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                var sw = Stopwatch.StartNew();
-
-                menuStrip1.Enabled = trackBar1.Enabled = saveBtn.Enabled = checkedColorsList.Enabled = false;
-
-                SetColors();                                
-
-                pictureBox1.Image = null;
-                _bitmaps.Clear();
-                Bitmap bitmap = new Bitmap(openFileDialog1.FileName);                
-                await Task.Run( () => { RunProcessing(bitmap); } );
-
-                menuStrip1.Enabled = trackBar1.Enabled = saveBtn.Enabled = checkedColorsList.Enabled = true;
-
-                sw.Stop();
-                Text = $"Processing time: {sw.Elapsed.Seconds} seconds";                   
+                Run();
             }
         }
 
@@ -169,6 +175,11 @@ namespace ImageProcessing
             {
                 MessageBox.Show(@"Изображение не сохранено");
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Run();
         }
     }
 }
