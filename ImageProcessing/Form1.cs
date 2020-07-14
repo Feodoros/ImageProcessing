@@ -65,6 +65,20 @@ namespace ImageProcessing
 
                 var currentBitmap = new Bitmap(bitmap.Width, bitmap.Height);
 
+                // Изначально на битмапе часть пикселей белая, часть -- черная
+                for (int y = 0; y < bitmap.Height; y++)
+                {
+                    for (int x = 0; x < bitmap.Width; x++)
+                    {
+                        bool isBlack = random.Next(2) == 0;
+                        if (isBlack)
+                        {
+                            currentBitmap.SetPixel(x, y, Color.Black);
+                        }
+                    }
+                }
+
+
                 foreach (var pixel in currentPixelsSet)
                 {
                     currentBitmap.SetPixel(pixel.Point.X, pixel.Point.Y, pixel.Color);
