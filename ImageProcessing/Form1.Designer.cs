@@ -36,6 +36,7 @@
             this.checkedColorsList = new System.Windows.Forms.CheckedListBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -61,6 +62,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.saveBtn);
             this.splitContainer1.Panel2.Controls.Add(this.checkedColorsList);
             this.splitContainer1.Panel2.Controls.Add(this.trackBar1);
             this.splitContainer1.Size = new System.Drawing.Size(800, 450);
@@ -115,7 +117,6 @@
             this.checkedColorsList.Name = "checkedColorsList";
             this.checkedColorsList.Size = new System.Drawing.Size(70, 79);
             this.checkedColorsList.TabIndex = 2;
-            this.checkedColorsList.SelectedIndexChanged += new System.EventHandler(this.checkedColorsList_SelectedIndexChanged);
             // 
             // trackBar1
             // 
@@ -133,6 +134,17 @@
             // openFileDialog1
             // 
             this.openFileDialog1.Filter = "Images|*.jpg;*.jpeg;*.png;*.bmp";
+            // 
+            // saveBtn
+            // 
+            this.saveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.saveBtn.Location = new System.Drawing.Point(60, 107);
+            this.saveBtn.Name = "saveBtn";
+            this.saveBtn.Size = new System.Drawing.Size(70, 52);
+            this.saveBtn.TabIndex = 3;
+            this.saveBtn.Text = "Save Image";
+            this.saveBtn.UseVisualStyleBackColor = true;
+            this.saveBtn.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -165,6 +177,7 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.CheckedListBox checkedColorsList;
+        private System.Windows.Forms.Button saveBtn;
     }
 }
 
