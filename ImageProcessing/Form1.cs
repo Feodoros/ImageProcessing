@@ -189,9 +189,11 @@ namespace ImageProcessing
 
             _bitmaps[trackBar1.Value].Save(@"C:\Users\Fedor\Documents\savedImage.jpg");
 
+            Clipboard.SetText(@"C:\Users\Fedor\Documents\savedImage.jpg");
+
             if (File.Exists(@"C:\Users\Fedor\Documents\savedImage.jpg"))
             {
-                MessageBox.Show(@"Изображение сохранено по адресу: C:\Users\Fedor\Documents\savedImage.jpg", "Успешно");
+                MessageBox.Show(@"Путь сохранен в буфер обмена", "Изображение сохранено");
             }
             else
             {
