@@ -21,10 +21,15 @@ namespace ImageProcessing
         private List<Color> _checkedColors = new List<Color>();
         private Random _random = new Random();
 
+        // TODO
+        //private CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+        //private CancellationToken token = new CancellationToken();
+
         public Form1()
         {
             InitializeComponent();
-            trackBar1.Enabled = saveBtn.Enabled = retryBtn.Enabled = false;
+            trackBar1.Enabled = saveBtn.Enabled = retryBtn.Enabled = stopBtn.Enabled = false;
+            stopBtn.Visible = false;
         }
 
         /// <summary>
@@ -68,6 +73,8 @@ namespace ImageProcessing
 
             menuStrip1.Enabled = trackBar1.Enabled = saveBtn.Enabled = checkedColorsList.Enabled = retryBtn.Enabled = false;
 
+            stopBtn.Enabled = true;
+
             _checkedColors.Clear();
             pictureBox1.Image = null;
             _bitmaps.Clear();
@@ -75,8 +82,9 @@ namespace ImageProcessing
             SetColors();
             
             Bitmap bitmap = new Bitmap(openFileDialog1.FileName);
-            await Task.Run(() => { RunProcessing(bitmap); });
-
+            
+            await Task.Run( () => { RunProcessing(bitmap); });
+            
             menuStrip1.Enabled = trackBar1.Enabled = saveBtn.Enabled = checkedColorsList.Enabled = retryBtn.Enabled = true;
 
             sw.Stop();
@@ -104,7 +112,7 @@ namespace ImageProcessing
             for (int i = 0; i < trackBar1.Maximum; i++)
             {
                 for (int j = 0; j < pixelsInStep; j++)
-                {
+                {                    
                     var index = _random.Next(pixels.Count);
                     currentPixelsSet.Add(pixels[index]);
                     pixels.RemoveAt(index);
@@ -194,6 +202,13 @@ namespace ImageProcessing
         private void button1_Click_1(object sender, EventArgs e)
         {
             Run();
+        }
+
+        private void stopBtn_Click(object sender, EventArgs e)
+        {           
+            _bitmaps.Clear();
+
+            stopBtn.Enabled = false;
         }
     }
 }

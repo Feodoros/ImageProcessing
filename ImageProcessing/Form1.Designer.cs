@@ -38,6 +38,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveBtn = new System.Windows.Forms.Button();
             this.retryBtn = new System.Windows.Forms.Button();
+            this.stopBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -63,6 +64,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.stopBtn);
             this.splitContainer1.Panel2.Controls.Add(this.retryBtn);
             this.splitContainer1.Panel2.Controls.Add(this.saveBtn);
             this.splitContainer1.Panel2.Controls.Add(this.checkedColorsList);
@@ -159,6 +161,17 @@
             this.retryBtn.UseVisualStyleBackColor = true;
             this.retryBtn.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // stopBtn
+            // 
+            this.stopBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.stopBtn.Location = new System.Drawing.Point(60, 248);
+            this.stopBtn.Name = "stopBtn";
+            this.stopBtn.Size = new System.Drawing.Size(70, 52);
+            this.stopBtn.TabIndex = 5;
+            this.stopBtn.Text = "Stop";
+            this.stopBtn.UseVisualStyleBackColor = true;
+            this.stopBtn.Click += new System.EventHandler(this.stopBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -192,6 +205,7 @@
         private System.Windows.Forms.CheckedListBox checkedColorsList;
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Button retryBtn;
+        private System.Windows.Forms.Button stopBtn;
     }
 }
 
