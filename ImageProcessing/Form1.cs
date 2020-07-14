@@ -16,12 +16,13 @@ namespace ImageProcessing
 {
     public partial class Form1 : Form
     {
-        private List<Bitmap> _bitmaps = new List<Bitmap>();
-        private Random random = new Random();
+        private List<Bitmap> _bitmaps = new List<Bitmap>();        
+        private List<Color> _checkedColors = new List<Color>();
+        private Random _random = new Random();
 
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private async void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -30,7 +31,27 @@ namespace ImageProcessing
             {
                 var sw = Stopwatch.StartNew();
 
-                menuStrip1.Enabled = trackBar1.Enabled = false; 
+                menuStrip1.Enabled = trackBar1.Enabled = false;
+
+                // Выбранные цвета
+                foreach (var item in checkedColorsList.CheckedItems)
+                {
+                    if (item.ToString() == "Black")
+                        _checkedColors.Add(Color.Black);
+
+                    if (item.ToString() == "White")
+                        _checkedColors.Add(Color.White);
+
+                    if (item.ToString() == "Red")
+                        _checkedColors.Add(Color.Red);
+
+                    if (item.ToString() == "Green")
+                        _checkedColors.Add(Color.Green);
+
+                    if (item.ToString() == "Blue")
+                        _checkedColors.Add(Color.Blue);
+                }
+                
 
                 pictureBox1.Image = null;
                 _bitmaps.Clear();
@@ -40,7 +61,7 @@ namespace ImageProcessing
                 menuStrip1.Enabled = trackBar1.Enabled = true;
 
                 sw.Stop();
-                Text = $"Processing time: {sw.Elapsed.Seconds} seconds";                
+                Text = $"Processing time: {sw.Elapsed.Seconds} seconds";                   
             }
         }
 
@@ -58,7 +79,7 @@ namespace ImageProcessing
             {
                 for (int j = 0; j < pixelsInStep; j++)
                 {
-                    var index = random.Next(pixels.Count);
+                    var index = _random.Next(pixels.Count);
                     currentPixelsSet.Add(pixels[index]);
                     pixels.RemoveAt(index);
                 }
@@ -70,7 +91,7 @@ namespace ImageProcessing
                 {
                     for (int x = 0; x < bitmap.Width; x++)
                     {
-                        bool isBlack = random.Next(2) == 0;
+                        bool isBlack = _random.Next(2) == 0;
                         if (isBlack)
                         {
                             currentBitmap.SetPixel(x, y, Color.Black);
@@ -127,6 +148,11 @@ namespace ImageProcessing
                 return;
 
             pictureBox1.Image = _bitmaps[trackBar1.Value];
+        }
+
+        private void checkedColorsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
